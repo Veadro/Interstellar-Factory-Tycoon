@@ -1,0 +1,34 @@
+ <h2>Manage Materials</h2>
+
+ <form action="/admin/materials" method="post">
+   <label for="materialName">Material Name:</label>
+   <input type="text" name="materialName" id="materialName" required>
+   <button type="submit">Add Material</button>
+ </form>
+
+ <table>
+   <thead>
+     <tr>
+       <th>Name</th>
+       <th>Actions</th>
+     </tr>
+   </thead>
+   <tbody>
+     <% materials.forEach((material) => { %>
+       <tr>
+         <td><%= material.name %></td>
+         <td>
+           <form action="/admin/materials/<%= material._id %>" method="post">
+             <input type="hidden" name="_method" value="put">
+             <input type="text" name="materialName" value="<%= material.name %>" required>
+             <button type="submit">Update</button>
+           </form>
+           <form action="/admin/materials/<%= material._id %>" method="post">
+             <input type="hidden" name="_method" value="delete">
+             <button type="submit">Delete</button>
+           </form>
+         </td>
+       </tr>
+     <% }) %>
+   </tbody>
+ </

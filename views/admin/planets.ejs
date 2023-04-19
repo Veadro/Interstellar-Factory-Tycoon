@@ -1,0 +1,34 @@
+ <h2>Manage Planets</h2>
+ 
+ <form action="/admin/planets" method="post">
+   <label for="planetName">Planet Name:</label>
+   <input type="text" name="planetName" id="planetName" required>
+   <button type="submit">Add Planet</button>
+ </form>
+ 
+ <table>
+   <thead>
+     <tr>
+       <th>Name</th>
+       <th>Actions</th>
+     </tr>
+   </thead>
+   <tbody>
+     <% planets.forEach((planet) => { %>
+       <tr>
+         <td><%= planet.name %></td>
+         <td>
+           <form action="/admin/planets/<%= planet._id %>" method="post">
+             <input type="hidden" name="_method" value="put">
+             <input type="text" name="planetName" value="<%= planet.name %>" required>
+             <button type="submit">Update</button>
+           </form>
+           <form action="/admin/planets/<%= planet._id %>" method="post">
+             <input type="hidden" name="_method" value="delete">
+             <button type="submit">Delete</button>
+           </form>
+         </td>
+       </tr>
+     <% }) %>
+   </tbody>
+ </table>
