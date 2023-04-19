@@ -16,11 +16,14 @@ module.exports = (db) => {
   app.use(express.static('public'));
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(methodOverride('_method'));
+  //log all the data in db object
+  console.log(db.s.client.options);
   app.use(session({
     secret: 'your-secret-key',
     resave: false,
     saveUninitialized: true,
-    store: MongoStore.create({ mongoUrl: db.client.s.options.url }),
+    //client.db.s.client.options.url is the url of the db
+    store: MongoStore.create({ mongoUrl: db.s.client.url }),
     cookie: { maxAge: 24 * 60 * 60 * 1000 } // 1 day
   }));
 
