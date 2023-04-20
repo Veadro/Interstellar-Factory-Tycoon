@@ -1,0 +1,34 @@
+<!-- views/planets.ejs -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Planets</title>
+</head>
+<body>
+  <h1>Planets</h1>
+  
+  <label for="solarSystem">Choose a solar system:</label>
+  <select id="solarSystem" name="solarSystem" onchange="changeSolarSystem()">
+    <% solarSystems.forEach(solarSystem => { %>
+      <option value="<%= solarSystem.id %>" <%= currentSolarSystem.id === solarSystem.id ? 'selected' : '' %>><%= solarSystem.name %></option>
+    <% }); %>
+  </select>
+
+  <ul>
+    <% planets.forEach(planet => { %>
+      <li>
+        <h2><%= planet.name %></h2>
+        <p><%= planet.description %></p>
+      </li>
+    <% }); %>
+  </ul>
+
+  <script>
+    function changeSolarSystem() {
+      const solarSystemId = document.getElementById("solarSystem").value;
+      window.location.href = `/solar-systems/${solarSystemId}/planets`;
+    }
+  </script>
+</body>
+</html>

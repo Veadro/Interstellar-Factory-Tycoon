@@ -1,0 +1,30 @@
+<!-- views/inventory.ejs -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Player Inventory</title>
+</head>
+<body>
+  <h1>Player Inventory</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Resource</th>
+        <th>Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% resources.forEach(resource => { %>
+        <tr>
+          <td><%= resource.name %></td>
+          <td><%= resource.quantity %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
+
+  <a href="/">Back to Planets</a>
+</body>
+</html>

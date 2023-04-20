@@ -17,7 +17,22 @@ module.exports = (db) => {
   router.get('/login', (req, res) => {
     res.render('login');
   });
+  
+  const { createCharacter } = require('./character');
 
+  router.post('/create-character', async (req, res) => {
+    try {
+      const { name, bio, password } = req.body;
+      const newCharacter = await createCharacter(db, name, bio, password);
+  
+      // Redirect to a success page or the character's profile page
+      res.redirect(`/characters/${newCharacter._id}`);
+    } catch (err) {
+      // Handle errors, such as a duplicate character name
+      res.status(400).send(err.message);
+    }
+  });
+  
   router.post('/login', (req, res) => {
     // Implement your authentication logic here
     // If authenticated, set req.session.isAuthenticated to true
@@ -54,6 +69,23 @@ module.exports = (db) => {
   });
 
   // Add other routes for materials and products here
+  // For listing products
+  res.render('admin/products/list', { products });
 
+  // For creating a new product
+  res.render('admin/products/new');
+
+  // For editing a product
+  res.render('admin/products/edit', { product });
+
+  router.get('/player/:playerId/inventory', async (req, res) => {
+    const playerId = req.params.playerId;
+  
+    // Fetch player's resources from the database
+    const resources = await getPlayersResources(playerId);
+  
+    res.render('inventory', { resources });
+  });
+  
   return router;
 };
